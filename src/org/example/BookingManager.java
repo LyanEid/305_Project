@@ -40,6 +40,8 @@ public class BookingManager {
         }
 
         // Update DB first — if it fails, the map stays unchanged
+      // add the same code for business (if-else)
+      // user must  choose the seat after checking if available
         try {
             DB.getInstance().update(
                     "UPDATE flights SET total_e_seats = total_e_seats - 1 " +
@@ -48,16 +50,19 @@ public class BookingManager {
         } catch (SQLException e) {
             return "DATABASE ERROR: " + e.getMessage();
         }
+      //check if the passanger is an adult
 
         // DB succeeded — now update
         flightSeats.put(flightId, availableSeats - 1);
+      // user Add method in DB to save the ticket info
 
         System.out.println("[BOOKED] " + passengerName + " booked a seat on " + flightId +
                 " | Remaining seats: " + (availableSeats - 1));
         return "SUCCESS: Seat booked for " + passengerName + " on flight " + flightId;
+      //invoke method print invoice 
     }
 
-    public String searchFlight(String flightId) {
+   /* public String searchFlight(String flightId) {
 
         try {
             ResultSet rs = DB.getInstance().retrive(
@@ -77,5 +82,5 @@ public class BookingManager {
 
         int seats = flightSeats.get(flightId);
         return "Flight " + flightId + " | Available seats: " + seats;
-    }
+    }**/
 }
